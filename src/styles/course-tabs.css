@@ -1,0 +1,53 @@
+/* F3: コース画面の種別分類タブ */
+
+.rlx-ct-tabs {
+  display: flex;
+  gap: var(--rlx-gap-sm);
+  margin-bottom: var(--rlx-gap-md);
+  border-bottom: 1px solid var(--rlx-border);
+}
+
+.rlx-ct-tab {
+  padding: 6px 14px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.95em;
+  color: var(--rlx-muted);
+  border-bottom: 2px solid transparent;
+}
+
+.rlx-ct-tab.active {
+  color: var(--rlx-accent);
+  border-bottom-color: var(--rlx-accent);
+  font-weight: 600;
+}
+
+.rlx-ct-category {
+  border: 1px solid var(--rlx-border);
+  border-radius: var(--rlx-radius);
+  margin-bottom: var(--rlx-gap-md);
+  padding: var(--rlx-gap-sm) var(--rlx-gap-md);
+}
+
+.rlx-ct-category > summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: var(--rlx-gap-sm) 0;
+}
+
+.rlx-ct-count {
+  color: var(--rlx-muted);
+  font-weight: normal;
+  font-size: 0.85em;
+}
+
+.rlx-ct-list {
+  margin: var(--rlx-gap-sm) 0 0;
+  padding: 0;
+}
+
+.rlx-ct-week-label {
+  font-size: 0.75em;
+  color: var(--rlx-muted);
+}

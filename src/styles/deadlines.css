@@ -1,0 +1,62 @@
+/* F2: 締切順の課題リストブロック（右ブロックドロワー内に表示） */
+
+.rlx-deadlines-filter {
+  margin: var(--rlx-gap-sm) 0;
+  font-size: 0.85em;
+}
+
+.rlx-deadlines-items {
+  margin: 0;
+  padding: 0;
+}
+
+.rlx-deadline-item {
+  display: block;
+  padding: var(--rlx-gap-sm) 0;
+  border-bottom: 1px solid var(--rlx-border);
+  font-size: 0.85em;
+}
+
+.rlx-deadline-item:last-child {
+  border-bottom: none;
+}
+
+/* 授業科目 → 課題内容 → 締切日の3行構成。課題内容・締切日は授業科目に対して字下げする。 */
+.rlx-deadline-course {
+  font-weight: 600;
+}
+
+.rlx-deadline-activity {
+  margin-left: 1em;
+}
+
+.rlx-deadline-due {
+  margin-left: 1em;
+  color: var(--rlx-muted);
+  font-size: 0.9em;
+}
+
+/* F2-4: 残り時間による4段階の色分け（締切日の行に適用） */
+.rlx-deadline-overdue .rlx-deadline-due {
+  color: var(--rlx-danger);
+  font-weight: 600;
+}
+
+.rlx-deadline-urgent .rlx-deadline-due {
+  color: var(--rlx-warning);
+  font-weight: 600;
+}
+
+.rlx-deadline-soon .rlx-deadline-due {
+  color: var(--rlx-accent);
+}
+
+.rlx-deadline-normal .rlx-deadline-due {
+  color: var(--rlx-muted);
+}
+
+.rlx-deadlines-error {
+  color: var(--rlx-danger);
+  font-size: 0.85em;
+  margin-bottom: var(--rlx-gap-md);
+}

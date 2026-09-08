@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "moodle+R UI改善",
+  "version": "0.1.0",
+  "description": "立命館大学LMS（moodle+R）のダッシュボード・コース画面の表示をクライアントサイドで改善する拡張機能",
+  "permissions": ["storage"],
+  "host_permissions": ["https://lms.ritsumei.ac.jp/*"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://lms.ritsumei.ac.jp/*"],
+      "world": "ISOLATED",
+      "run_at": "document_start",
+      "css": [
+        "src/styles/base.css",
+        "src/styles/timetable.css",
+        "src/styles/deadlines.css",
+        "src/styles/course-tabs.css",
+        "src/styles/course-index.css"
+      ],
+      "js": [
+        "src/lib/log.js",
+        "src/lib/settings.js",
+        "src/lib/storage.js",
+        "src/lib/wait.js",
+        "src/lib/page.js",
+        "src/lib/modtype.js",
+        "src/lib/period.js",
+        "src/lib/moodle-api.js",
+        "src/content/features/timetable.js",
+        "src/content/features/deadlines.js",
+        "src/content/features/course-tabs.js",
+        "src/content/features/course-index.js",
+        "src/content/features/nav-menu.js",
+        "src/content/features/note-list.js",
+        "src/content/main.js"
+      ]
+    }
+  ]
+}

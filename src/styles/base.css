@@ -1,0 +1,38 @@
+/* moodle+R UI改善 拡張 共通CSS変数・ユーティリティ */
+:root {
+  --rlx-accent: #2f6feb;
+  --rlx-danger: #d64545;
+  --rlx-warning: #d98c1f;
+  --rlx-muted: #6b7280;
+  --rlx-border: #d0d5dd;
+  --rlx-radius: 6px;
+  --rlx-gap-sm: 4px;
+  --rlx-gap-md: 8px;
+  --rlx-gap-lg: 16px;
+}
+
+/* N-6: 破壊的削除を避け、非表示はこのクラス付与で行う */
+.rlx-hidden {
+  display: none !important;
+}
+
+.rlx-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 左右のドロワー（コースインデックス/ブロック）はウィンドウ幅によって自動的に閉じることがあるため、
+   常時表示させたい場合はこのクラスを付与する。Moodle標準のJSがclass/styleを操作しても
+   上書きされるよう!importantを付与する。 */
+.drawer.rlx-force-open {
+  transform: none !important;
+  visibility: visible !important;
+  display: block !important;
+}

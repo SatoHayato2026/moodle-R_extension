@@ -1,0 +1,120 @@
+/* F1: 時間割の一覧性改善 */
+
+/* F1-1: /my/ の #topofscroll.main-inner に効いているmax-width:830pxを解除する
+   （Phase 0調査で特定。#page や .container-fluid ではなくこの要素が犯人） */
+body#page-my-index.limitedwidth #topofscroll.main-inner {
+  max-width: none;
+}
+
+/* テーブル自体が内部スクロールしないようにする（親要素側の高さ制限も念のため解除） */
+.block_rutime_table,
+.block_rutime_table .card-body,
+.block_rutime_table .timetable-main,
+.block_rutime_table .timetable-table {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.block_rutime_table table.timetable {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.block_rutime_table table.timetable thead th:first-child,
+.block_rutime_table table.timetable td.time {
+  width: 48px;
+  text-align: center;
+}
+
+/* F1-6: 凡例の非表示自体はJSがbase.cssの.rlx-hiddenを付与して行う */
+
+/* F1-8: コース名は省略せず、必要なら複数行に折り返して全文表示する（完全な名前はtitle属性にも保持） */
+.block_rutime_table .subject {
+  display: block;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 2px 0 2px 6px;
+  container-type: inline-size;
+  position: relative;
+}
+
+/* イラストの周囲に元の水色が縁取りのように見えないよう、余白（td/.subjectsの余白）を無くして
+   イラストがセル全体を覆うようにする。
+   また、背景イラストの取得はJS側の非同期処理（API通信）を待つため、CSSより後に反映される。
+   td.highlightの水色をCSS側（document_start・非同期処理に依存しない）で最初から透明にしておくことで、
+   「一瞬水色が見えてからイラストに切り替わる」というちらつきを無くす（td.emptyには影響しないので
+   授業のないコマの水色はそのまま残る）。 */
+.block_rutime_table td.highlight {
+  padding: 0 !important;
+  background-color: transparent !important;
+}
+
+.block_rutime_table .subjects {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  background-color: transparent !important;
+}
+
+/* 「コース概要」のイラストを背景に敷き、文字が読みにくくならない程度の薄い白のオーバーレイを重ねる */
+.block_rutime_table .subject.rlx-has-course-image {
+  background-size: cover;
+  background-position: center;
+}
+
+.block_rutime_table .subject.rlx-has-course-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: inherit;
+}
+
+.block_rutime_table .subject.rlx-has-course-image > * {
+  position: relative;
+}
+
+.block_rutime_table a.active-course-name {
+  display: block;
+  white-space: normal;
+  overflow-wrap: break-word;
+  font-size: 0.85em;
+}
+
+.block_rutime_table .room {
+  white-space: normal;
+  overflow-wrap: break-word;
+  font-size: 0.75em;
+  color: var(--rlx-muted);
+}
+
+/* 元のお気に入り/未読アナウンス/未提出課題/未読フォーラムのアイコン。
+   セル幅が十分にある（画面が広い）場合は改行(br)を無くして横一列に、
+   狭い場合はMoodle標準どおり2行に分けて縦の高さを抑える。 */
+.block_rutime_table .subject img {
+  width: 11px;
+  height: 11px;
+  vertical-align: middle;
+}
+
+.block_rutime_table .subject span.off,
+.block_rutime_table .subject span.on {
+  display: inline-block;
+  margin-right: 2px;
+}
+
+@container (min-width: 90px) {
+  .block_rutime_table .subject br {
+    display: none;
+  }
+}
+
+/* F1-9: 本日の曜日列ハイライト（--rlx-dangerと同系色の薄い赤） */
+.block_rutime_table table.timetable .rlx-today-col {
+  background-color: rgba(214, 69, 69, 0.14);
+}
+
+/* F1-10: 現在時限の行を枠線で強調（周囲のUI（本日列ハイライト等）に合わせて赤系に統一） */
+.block_rutime_table table.timetable tr.rlx-current-period-row td {
+  box-shadow: inset 0 2px 0 var(--rlx-danger), inset 0 -2px 0 var(--rlx-danger);
+}

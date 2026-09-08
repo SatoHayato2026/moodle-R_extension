@@ -1,0 +1,144 @@
+/* F4: コースインデックスのツリー化 */
+
+/* ドロワー上部のヘッダーは元々1行分の固定高さのため、コース名が複数行になっても
+   下の検索ボックス等と重ならないよう、高さを可変にしておく。
+   閉じるボタン・「⋮」メニューは既に非表示化済みなので、この行はコース名専用として使える。 */
+#theme_boost-drawers-courseindex .drawerheader {
+  height: auto;
+  min-height: 48px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* ドロワー上部のコース名リンク。省略せず、必要なら複数行に折り返して全文表示する。 */
+#theme_boost-drawers-courseindex [data-region="site-home-link"] {
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.05em;
+  white-space: normal;
+  overflow-wrap: break-word;
+  line-height: 1.3;
+  padding: 4px 8px;
+}
+
+/* 「活動」ブロック: リンクではなく見出し（タイトル）のような見た目にする */
+[data-block="activity_modules"] .column > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 1.05em;
+  color: inherit;
+  text-decoration: none;
+}
+
+[data-block="activity_modules"] .column > a:hover,
+[data-block="activity_modules"] .column > a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 「活動」ブロック: クリックでページ遷移せずプルダウン表示する */
+.rlx-activity-dropdown {
+  margin: 4px 0 8px 1.5em;
+  padding: 0;
+  border-left: 2px solid var(--rlx-border);
+  padding-left: 8px;
+  font-size: 0.9em;
+}
+
+.rlx-activity-dropdown li {
+  padding: 2px 0;
+}
+
+/* F4-3: セクション行は太字 */
+#theme_boost-drawers-courseindex .courseindex-section-title {
+  font-weight: 600;
+}
+
+/* 名前が複数行に折り返した際、開閉矢印(chevron)やロックアイコンが縦中央ではなく上端に揃うようにする */
+#theme_boost-drawers-courseindex .courseindex-item.d-flex {
+  align-items: flex-start !important;
+}
+
+/* F4-2: 子要素（活動一覧）を親（セクション）より明確に字下げする
+   拡張CSSはdocument_startで早期挿入されるため、後読みのMoodle本体CSSに
+   カスケード順で負けないよう、詳細度を上げた上で!importantを付与する。 */
+#theme_boost-drawers-courseindex .courseindex-sectioncontent {
+  margin-left: 20px !important;
+  padding-left: 12px !important;
+  border-left: 1px dashed var(--rlx-border) !important;
+}
+
+/* 長い活動名は省略せず折り返して全文表示する（Moodle標準のtext-truncateを打ち消す） */
+#theme_boost-drawers-courseindex .text-truncate {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word;
+}
+
+/* F4-4: 行の余白・文字サイズを詰める（折り返しで複数行になっても高さは可変のまま） */
+#theme_boost-drawers-courseindex .courseindex-item {
+  font-size: 0.85em !important;
+  line-height: 1.4 !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+
+/* F4-8: 未完了活動の右端ドット */
+.rlx-ci-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rlx-warning);
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* F4-5: 開閉トグルのアニメーションを無効化する（複数セクションを一括同期する際の体感速度対策） */
+#theme_boost-drawers-courseindex .collapse,
+#theme_boost-drawers-courseindex .collapsing,
+#theme_boost-drawers-courseindex .icons-collapse-expand,
+#theme_boost-drawers-courseindex .icons-collapse-expand * {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* すべて展開/折りたたむボタンと機能が重複するため、Moodle標準の「⋮」オプションメニューは非表示にする */
+#courseindexdrawercontrols {
+  display: none !important;
+}
+
+/* F4-6・F4-7: 検索ボックス+展開/折りたたむボタンのツールバー。
+   Moodle標準ヘッダの狭い1行に押し込むと衝突するため、セクション一覧の直前に独立した行として置く。
+   ヘッダ（閉じるボタン等）との間隔が空きすぎないよう、上下の余白は最小限にする。 */
+.rlx-ci-toolbar {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 2px var(--rlx-gap-md) var(--rlx-gap-sm);
+  margin: 0;
+  border-bottom: 1px solid var(--rlx-border);
+}
+
+.rlx-ci-search {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin-bottom: var(--rlx-gap-sm);
+}
+
+.rlx-ci-buttons {
+  display: flex;
+  gap: var(--rlx-gap-sm);
+}
+
+.rlx-ci-buttons button {
+  font-size: 0.75em;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
